@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
 
-function App() {
+import Header from "./components/Header";
+import Login from "./pages/login";
+import Register from "./pages/register";
+
+import React from "react";
+import PrivateRoute from "./privateRoute/PrivateRoute";
+import Admin from "./pages/admin";
+import EditProduct from "./admin/EditProduct";
+const ROLES = {
+  User: 2001,
+  Admin: 9909,
+};
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route element={<PrivateRoute allowedRoles={[ROLES.Admin]} />}>
+            <Route path="/admin" element={<Admin />}></Route>
+            <Route path="/admin/add-product" element={<Admin />}></Route>
+            <Route path="/admin/edit-product/:id" element={<EditProduct />}></Route>
+          </Route>
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

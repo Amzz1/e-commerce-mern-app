@@ -5,6 +5,7 @@ import { createError } from "../utils/error.js"
 import jwt from "jsonwebtoken"
 export const register = async (req,res,next) => {
    const {user,pwd, email} = req.body
+   console.log(email)
     if(!user || !pwd) return res.status(400).json({'message':'username and password are required'})
     //check for duplitate usernames in database
     const duplicate = await User.findOne({username:user}).exec()
@@ -27,6 +28,7 @@ export const register = async (req,res,next) => {
 
 export const login = async (req, res, next) => {
   try {
+    console.log('backend')
     console.log(req.body)
     const user = await User.findOne({ username: req.body.user });
     if (!user) return next(createError(404, "User not found"));
@@ -51,37 +53,37 @@ export const login = async (req, res, next) => {
       .json(otherDetails);
 
            //evaluete passwaord
-    const match = await bcrypt.compare(pwd,user.password)
-    if(match){
-            const roles = Object.values(user.roles)
-        // create JWTs
-        const accessToken = jwt.sign(
-            {
-                "UserInfo":{
-                    "username":user.username,
-                    "roles":roles
-                }
-            },
-            process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn:'30s'}
+    // const match = await bcrypt.compare(req.body.pwd,user.password)
+    // if(match){
+    //         const roles = Object.values(user.roles)
+    //     // create JWTs
+    //     const accessToken = jwt.sign(
+    //         {
+    //             "UserInfo":{
+    //                 "username":user.username,
+    //                 "roles":roles
+    //             }
+    //         },
+    //         process.env.ACCESS_TOKEN_SECRET,
+    //         {expiresIn:'30s'}
         
-        )
-        const refreshToken = jwt.sign(
-            {"username":user.username},
-            process.env.REFRESH_TOKEN_SECRET,
-            {expiresIn:'1d'}
-        )
+    //     )
+    //     const refreshToken = jwt.sign(
+    //         {"username":user.username},
+    //         process.env.REFRESH_TOKEN_SECRET,
+    //         {expiresIn:'1d'}
+    //     )
 
-        //Saving refreshToken with current user
-        user.refreshToken = refreshToken
-        const result = await user.save()
-        console.log(result)
+    //     //Saving refreshToken with current user
+    //     user.refreshToken = refreshToken
+    //     const result = await user.save()
+    //     console.log(result)
 
-        res.cookie('jwt', refreshToken , {httpOnly:true,sameSite:'None', maxAge:24*60*60*1000})//secure:true
-        res.json({accessToken})
-    }else{
-        res.sendStatus(401)
-    }
+    //     res.cookie('jwt', refreshToken , {httpOnly:true,sameSite:'None', maxAge:24*60*60*1000})//secure:true
+    //     res.json({accessToken})
+    // }else{
+    //     res.sendStatus(401)
+    // }
   } catch (err) {
     next(err);
   }
