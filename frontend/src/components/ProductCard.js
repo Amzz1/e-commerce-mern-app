@@ -1,6 +1,5 @@
 // ProductCard.js
 import React, { useState } from 'react';
-import './product-card.css';
 import { Link } from 'react-router-dom';
 import StarRating from './StarRating';
 import AddToCartButton from './AddToCartButton';

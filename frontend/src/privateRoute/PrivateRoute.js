@@ -7,6 +7,9 @@ const PrivateRoute = ({ allowedRoles }) => {
 console.log(auth)
   const location = useLocation();
 
+  if( auth== undefined||!auth.roles){
+    return <Navigate to="/login" state={{ from: location }} replace />
+  }
   return (
     //   auth?.roles?.find(role => allowedRoles?.includes(role))
       allowedRoles.every(role => Object.values(auth.roles).includes(role))

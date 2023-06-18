@@ -9,7 +9,7 @@ import useClickOutside from "../customHook/useClickOutside";
 
 const Header = () => {
     const dispatch = useDispatch();
-    //const cartItems = useSelector((state) => state.cart);
+    const cartItems = useSelector((state) => state.cart);
     const user = useSelector((state) => state.auth.user);
     const handleLogout = () => {
         dispatch(logout());
@@ -17,9 +17,9 @@ const Header = () => {
       };
     
   
-    // const getTotalQuantity = () => {
-    //   return cartItems.reduce((total, item) => total + item.quantity, 0);
-    // };
+    const getTotalQuantity = () => {
+      return cartItems.reduce((total, item) => total + item.quantity, 0);
+    };
   const {
     isActive: isSidebarActive,
     setIsActive: setSidebarActive,
@@ -69,13 +69,6 @@ const Header = () => {
           </div>
         )}
       </div>
-      {/* <button onClick={() => setSidebarActive(!isSidebarActive)} className="nav-container-mobile-icon">
-            <BsList />
-          </button> */}
-
-      {/* <button   onClick={handleSidebarButtonClick} className="nav-container-mobile-icon">
-  <BsList />
-</button> */}
 
       <div className="logo">
         <Link to="/">
@@ -90,11 +83,11 @@ const Header = () => {
         <Link to="product/category/makeup">Makeup</Link>
       </div>
       <div className="header-icons">
-        <div>
+        <div className="header-icons_cart">
           <Link to="/cart">
             <BsFillCartFill />
           </Link>
-          {/* <span>{getTotalQuantity()}</span> */}
+          <span>{getTotalQuantity()}</span>
         </div>
         <div className="account-container" ref={accountContainerRef}>
           <button onClick={handleAccountButtonClick}>

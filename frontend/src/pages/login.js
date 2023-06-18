@@ -51,25 +51,12 @@ const Login = () => {
                 }
       );
       dispatch(loginSuccess(response.data));
-      console.log('hiencute')
       console.log(JSON.stringify(response?.data));
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      // setAuth({ user, pwd, roles, accessToken });
       setUser('');
       setPwd('');
       setSuccess(true);
 
-      // Check if the user is an admin
-      const isAdmin = response.data.isAdmin;
-
-      if (isAdmin) {
-        // If user is an admin, navigate to "/admin/dashboard"
-        navigate("/admin/dashboard");
-      } else {
-        // If user is not an admin, navigate to "/"
-        navigate("/");
-      }
+      navigate("/");
     } catch (err) {
       if (err.response) {
         if (err.response.status === 404) {
@@ -99,7 +86,7 @@ const Login = () => {
             </p>
         </section>
     ) : (
-        <section>
+        <section className="login_section section">
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Sign In</h1>
             <form onSubmit={handleClick}>

@@ -1,7 +1,7 @@
 // AddToCartButton.js
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../redux/cartReducer';
+import { addToCart } from '../redux/cartReducer';
 
 const AddToCartButton = ({ product }) => {
   const dispatch = useDispatch();
