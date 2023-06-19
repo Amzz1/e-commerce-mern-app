@@ -14,6 +14,7 @@ import PrivateRoute from "./privateRoute/PrivateRoute";
 import Admin from "./pages/admin";
 import EditProduct from "./admin/EditProduct";
 import Home from "./pages/home";
+import Product from "./pages/product";
 import Category from "./pages/category";
 import CartItems from "./components/CartItems";
 const ROLES = {
@@ -31,6 +32,8 @@ const App = () => {
           <Route element={<PrivateRoute allowedRoles={[ ROLES.User]} />}>
             <Route path="/" element={<Home />}></Route>
             <Route path="product/category/:name" element={<Category />}></Route>
+            <Route path="product/:id" element={<Product />}></Route>
+            <Route path="product/category/:name/product/:id" element={<Product />}></Route>
             <Route path="/cart" element={<CartItems />}></Route>
           </Route>
           <Route element={<PrivateRoute allowedRoles={[ROLES.Admin, ROLES.User]} />}>

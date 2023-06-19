@@ -9,12 +9,12 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="product-card">
-      <div className="product-card_image">
+      <div className="product-card_image img-wrapper">
         <img src={imageUrl} alt={title} />
       </div>
-      <h3>
+      <h4>
         <Link to={`product/${_id}`}>{title}</Link>
-      </h3>
+      </h4>
       <p>${price}</p>
       <StarRating rating={product.rating} />
       <AddToCartButton product={product} />

@@ -53,13 +53,13 @@ const CartItems = () => {
   
 
   return (
-    <div>
-      <h2>Cart</h2>
+    <div className='cart'>
+      <h1 className='text-center'>Your cart</h1>
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         <>
-        <table>
+        <table className='max-1200'>
           <thead>
             <tr>
               <th className="product">Product</th>
@@ -72,12 +72,17 @@ const CartItems = () => {
             {cartItems.map((item) => (
               <tr key={item._id + item.color + item.size}>
                 <td className="item-title">
-                  {item.title} {item.color && <span>{item.color}</span>} {item.size && <span>{item.size}</span>}
+                <div className="img-wrapper item-img">
+            <img src={item.imageUrl} alt='product-image'/>
+          </div>
+                <div>{item.title} {item.color && <span>{item.color}</span>} {item.size && <span>{item.size} ml</span>}</div>  
                 </td>
                 <td className="quantity">
+          
                   <button onClick={() => handleDecreaseQuantity(item._id, item.color, item.size)}>-</button>
-                  {item.quantity}
+                {item.quantity}
                   <button onClick={() => handleIncreaseQuantity(item._id, item.color, item.size)}>+</button>
+               
                   <button className="delete" onClick={() => handleRemoveFromCart(item._id, item.color, item.size)}>
                     <BsTrash3 />
                   </button>
@@ -88,7 +93,7 @@ const CartItems = () => {
             ))}
           </tbody>
         </table>
-        <button onClick={handleCheckout}>Checkovvut</button>
+        <button onClick={handleCheckout}>Check out</button>
         </>
       )}
     </div>

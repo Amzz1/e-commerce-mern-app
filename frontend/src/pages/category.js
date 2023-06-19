@@ -26,6 +26,7 @@ const Category = () => {
 
   const fetchData = async () => {
     try {
+      console.log("get category")
       const queryParams = new URLSearchParams(location.search);
       const filters = {};
       for (let [key, value] of queryParams.entries()) {
@@ -65,9 +66,17 @@ const Category = () => {
   };
   
 
+  // const getSpanClassName = (filterType, filterValue) => {
+  //   return selectedFilters[filterType] === filterValue ? "active" : "";
+  // };
   const getSpanClassName = (filterType, filterValue) => {
-    return selectedFilters[filterType] === filterValue ? "active" : "";
+    const selectedFilterValue = selectedFilters[filterType];
+    if (filterType === "price" || filterType === "size") {
+      return selectedFilterValue === filterValue.toString() ? "active" : "";
+    }
+    return selectedFilterValue === filterValue ? "active" : "";
   };
+  
 
   // Sort the filter arrays before rendering
   const sortedColors = colors.slice().sort();
@@ -76,7 +85,7 @@ const Category = () => {
   const sortedBrands = brands.slice().sort();
 
   return (
-    <div className="category-wapper">
+    <div className="category-wapper max-1400">
       <div className="filter-tree">
         <div className="colorDiv">
           {sortedColors.length > 0 && <h3>Color</h3>}
@@ -137,9 +146,14 @@ const Category = () => {
       </div>
 
       <div className="product-grid">
-        {products.map((item) => (
+        
+        {/* {products.map((item) => (
           <ProductCard key={item._id} product={item} />
-        ))}
+        ))} */}
+          
+        {products.length > 0?(products.map((item)=>(
+          <ProductCard key={item._id} product={item}/>
+        ))):(<div style={{fontSize:"30px"}}>No products found</div>)}
       </div>
     </div>
   );

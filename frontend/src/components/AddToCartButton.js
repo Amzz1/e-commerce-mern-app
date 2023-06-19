@@ -29,14 +29,14 @@ const AddToCartButton = ({ product }) => {
   };
 
   const [selectedColor, setSelectedColor] = useState(
-    product.color && product.color.length > 0 ? product.color[0] : ''
+    product?.color && product?.color.length > 0 ? product?.color[0] : ''
   );
   const handleColorChange = (color) => {
     setSelectedColor(color);
   };
 
   const [selectedSize, setSelectedSize] = useState(
-    product.size && product.size.length > 0 ? product.size[0] : ''
+    product?.size && product?.size.length > 0 ? product?.size[0] : ''
   );
   const handleSizeChange = (size) => {
     setSelectedSize(size);
@@ -44,9 +44,9 @@ const AddToCartButton = ({ product }) => {
 
   return (
     <div>
-      {product.color && product.color.length > 0 && (
+      {product?.color && product?.color.length > 0 && (
         <div className="variant-options">
-          {product.color.map((color) => (
+          {product?.color.map((color) => (
             <span
               key={color}
               className={selectedColor === color ? 'selected' : ''}
@@ -58,7 +58,7 @@ const AddToCartButton = ({ product }) => {
         </div>
       )}
 
-      {product.size && product.size.length > 0 && (
+      {product?.size && product?.size.length > 0 && (
         <div className="variant-options">
           {product.size.map((size) => (
             <span

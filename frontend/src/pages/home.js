@@ -7,14 +7,43 @@ import surpriseGift from "../assets/surprise-gift-box.png";
 import featureditem1 from "../assets/featuredcollection-item1.png";
 import featureditem2 from "../assets/featuredcollection-item2.png";
 import aboutus from "../assets/Rectangle3239.png";
+import customerimg1 from "../assets/image88.png";
+import customerimg2 from "../assets/image89.png";
+import footerbannerRectangle1 from "../assets/footerbannerRectangle1.png";
+import footerbannerRectangle2 from "../assets/footerbannerRectangle2.png";
+import footerbannerRectangle3 from "../assets/footerbannerRectangle3.png";
+import footerbannerRectangle4 from "../assets/footerbannerRectangle4.png";
+import footerbannerRectangle5 from "../assets/footerbannerRectangle5.png";
+import footerimg from "../assets/image90.png";
+import {BsFacebook,BsTwitter,BsLinkedin,BsYoutube} from "react-icons/bs"
+import axios from "axios";
+import API_URL from "../apiUrl/apiUrl";
 
 import { Link } from "react-router-dom";
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [email,setEmail]=useState('')
+const [showSucessMessage,setShowSuccessMessage] = useState(false)
+  const sendCustomerEmail = async (e) =>{
+    try{
+    e.preventDefault();
+    const res = await axios.post(`${API_URL}/email/subscribe`,{"email":email})
+ if(res.status == 200){
+    // Show the success message
+    setShowSuccessMessage(true);
+ }
+ setTimeout(() => {
+  setShowSuccessMessage(false);
+}, 3500);
+    console.log(res)
+}catch(err){
+  console.log(err)
+}
+  }
   return (
     <div>
       <HomepageSlider />
-      <div className="img-wrapper">
+      <div className="img-wrapper vector">
         <img src={vector} alt="vector" />
       </div>
       <section className="service grid">
@@ -52,7 +81,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <div className="featured-collection_wrapper">
+      <div className="featured-collection_wrapper ">
         <div className="featured-collection grid">
           <div className="img-wrapper">
             <img src={featureditem1} />
@@ -125,12 +154,13 @@ const Home = () => {
         </div>
       </div>
 
-      <section className="about-us grid grid-50">
+      <section className="about-us grid grid-50 max-1200">
         <div className="about-us_img">
           <div className="img-wrapper">
             <img src={aboutus} alt="image" />
           </div>
           <svg
+            className="top"
             width="233"
             height="190"
             viewBox="0 0 233 190"
@@ -140,6 +170,7 @@ const Home = () => {
             <rect width="233" height="190" fill="#EE6983" />
           </svg>
           <svg
+          className="bottom"
             width="233"
             height="190"
             viewBox="0 0 233 190"
@@ -149,9 +180,9 @@ const Home = () => {
             <rect width="233" height="190" fill="#EE6983" />
           </svg>
         </div>
-        <div className="about-us_info">
+        <div className="about-us_info flex-column">
           <h5>About us</h5>
-          <h1>Clean, Cruelty-Free,Dermatologist-Tested</h1>
+          <h2>Clean, Cruelty-Free,Dermatologist-Tested</h2>
           <p>
             We are a clean, cruelty-free, planet-friendly skincare brand that
             delivers transformative, dermatologist-tested products for total
@@ -160,6 +191,70 @@ const Home = () => {
           <button>Explore more</button>
         </div>
       </section>
+
+
+      <section className="customer-email grid max-1200">
+           <div className="img-wrapper">
+            <img src={customerimg1} alt="image" />
+          </div>
+          <form onSubmit={sendCustomerEmail}>
+            <label>
+              Or stay tune with us
+            </label>
+            <input 
+                type="email"
+                placeholder="enter your email"
+                value={email}
+                onChange={e=> setEmail(e.target.value)}
+            />
+            <button>Submit</button>
+          </form>
+           <div className="img-wrapper">
+            <img src={customerimg2} alt="image" />
+          </div>
+      </section>
+      {showSucessMessage &&<div className="sucess-msg">thank you for submitting</div>}
+
+      <div className="footer">
+        <div className="footer-img-wrapper flex">
+          <div className="img-wrapper">
+            <img src={footerbannerRectangle1} alt="image" />
+          </div>
+          <div className="img-wrapper">
+            <img src={footerbannerRectangle2} alt="image" />
+          </div>
+          <div className="img-wrapper">
+            <img src={footerbannerRectangle3} alt="image" />
+          </div>
+          <div className="img-wrapper">
+            <img src={footerbannerRectangle5} alt="image" />
+          </div>
+          <div className="img-wrapper">
+            <img src={footerbannerRectangle4} alt="image" />
+          </div>
+        </div>
+        <div className="footer-navigate grid">
+          <div className="img-wrapper">
+            <img src={footerimg} alt="image" />
+          </div>
+          <div className="footer-navigate_collections">
+            <div className="footer-navigate_collections-link">
+              <Link>Men</Link>
+              <Link>Women</Link>
+              <Link>Kids</Link>
+              <Link>Collections</Link>
+              <Link>Trends</Link>
+            </div>
+            <div>Copyright Flash All Right Recovered</div>
+          </div>
+          <div className="footer-navigate_socialmedia">
+             <BsFacebook/>
+             <BsTwitter/>
+             <BsLinkedin/>
+             <BsYoutube/>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

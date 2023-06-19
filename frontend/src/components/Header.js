@@ -94,10 +94,10 @@ const Header = () => {
             <BsFillPersonFill />
           </button>
           {isAccountActive && (
-            <div className="account">
+            <div className="account grid">
               {user ? (
                 <>
-                  <a>Hi {user.username}</a>
+                  <span>Hi {user.username}</span>
                   {/* <a className="logout">Logout</a> */}
                   <a className="logout" onClick={handleLogout}>Logout</a>
                 </>

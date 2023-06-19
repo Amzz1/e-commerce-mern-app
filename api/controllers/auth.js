@@ -52,38 +52,6 @@ export const login = async (req, res, next) => {
       .status(200)
       .json(otherDetails);
 
-           //evaluete passwaord
-    // const match = await bcrypt.compare(req.body.pwd,user.password)
-    // if(match){
-    //         const roles = Object.values(user.roles)
-    //     // create JWTs
-    //     const accessToken = jwt.sign(
-    //         {
-    //             "UserInfo":{
-    //                 "username":user.username,
-    //                 "roles":roles
-    //             }
-    //         },
-    //         process.env.ACCESS_TOKEN_SECRET,
-    //         {expiresIn:'30s'}
-        
-    //     )
-    //     const refreshToken = jwt.sign(
-    //         {"username":user.username},
-    //         process.env.REFRESH_TOKEN_SECRET,
-    //         {expiresIn:'1d'}
-    //     )
-
-    //     //Saving refreshToken with current user
-    //     user.refreshToken = refreshToken
-    //     const result = await user.save()
-    //     console.log(result)
-
-    //     res.cookie('jwt', refreshToken , {httpOnly:true,sameSite:'None', maxAge:24*60*60*1000})//secure:true
-    //     res.json({accessToken})
-    // }else{
-    //     res.sendStatus(401)
-    // }
   } catch (err) {
     next(err);
   }
