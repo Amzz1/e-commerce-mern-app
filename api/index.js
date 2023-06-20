@@ -11,6 +11,8 @@ import usersRoute from '../api/routes/users.js';
 import customerEmail from '../api/routes/customerEmail.js';
 import auth from '../api/routes/auth.js';
 import Stripe from 'stripe';
+import 'dotenv/config'
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -38,10 +40,16 @@ app.use(cors({
   credentials: true
 }));
 
+
+
 app.use((req, res, next) => {
-  res.setHeader('Content-Security-Policy', "default-src 'self'; font-src 'self' 'unsafe-inline';");
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self' https://js.stripe.com; object-src 'none'; style-src 'self' fonts.googleapis.com; img-src 'self' data:; font-src 'self'; frame-src 'self' https://js.stripe.com/;"
+  );
   next();
 });
+
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -50,6 +58,25 @@ app.use('/product', productRoute);
 app.use('/users', usersRoute);
 app.use('/email', customerEmail);
 app.use('/auth', auth);
+
+const _dirname = path.dirname("")
+const buildPath = path.join(_dirname  , "../frontend/build");
+
+app.use(express.static(buildPath))
+
+app.get("/*", function(req, res){
+
+    res.sendFile(
+        path.join(__dirname, "../frontend/build/index.html"),
+        function (err) {
+          if (err) {
+            res.status(500).send(err);
+          }
+        }
+      );
+
+})
+
 
 // Create an instance of the Stripe class
 const stripe = new Stripe(process.env.STRIPE_KEY_SECRET);

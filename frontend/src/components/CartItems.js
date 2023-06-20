@@ -6,7 +6,6 @@ import { BsTrash3 } from 'react-icons/bs';
 import { loadStripe } from '@stripe/stripe-js';
 import API_URL from '../apiUrl/apiUrl';
 
-
 const CartItems = () => {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -43,7 +42,7 @@ const CartItems = () => {
     const session = await response.json();
   
     // Load the Stripe instance
-    const stripe = await loadStripe('pk_test_51NIJN7Irjtx2dPjPKi0VwCVMOrBmalACyo5olEjNKFaHxnpVew5c19XrjdhPJUnkCUUncgMC7yShzkVgSS9W8BdU008XoruQxg');
+    const stripe = await loadStripe("pk_test_51NIJN7Irjtx2dPjPKi0VwCVMOrBmalACyo5olEjNKFaHxnpVew5c19XrjdhPJUnkCUUncgMC7yShzkVgSS9W8BdU008XoruQxg");
   
     // Redirect to the checkout page
     if (stripe) {

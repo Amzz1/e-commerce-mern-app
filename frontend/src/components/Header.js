@@ -12,8 +12,10 @@ const Header = () => {
     const cartItems = useSelector((state) => state.cart);
     const user = useSelector((state) => state.auth.user);
     const handleLogout = () => {
+      console.log('logout')
         dispatch(logout());
         setAccountActive(false);
+ 
       };
     
   
@@ -48,8 +50,7 @@ const Header = () => {
       setAccountActive(false);
     }
   };
-  //   const accountButtonRef = useRef();
-  //   const sidebarButtonRef = useRef();
+
 
   return (
     <div className="header-container" onClick={handleOutsideClick}>
