@@ -66,7 +66,7 @@ const AddToCartButton = ({ product }) => {
               className={selectedSize === size ? 'selected' : ''}
               onClick={() => handleSizeChange(size)}
             >
-              {size}
+              {size}ml
             </span>
           ))}
         </div>

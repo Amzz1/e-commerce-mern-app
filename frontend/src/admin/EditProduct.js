@@ -3,9 +3,7 @@ import React, { useState , useEffect} from "react";
 import axios from "axios";
 import ImageUpload from "./ImageUpload";
 import { useNavigate } from "react-router-dom";
-import API_URL from "../apiUrl/apiUrl";
 import { useParams } from "react-router-dom";
-import App from "../App";
 
 function EditProduct() {
 
@@ -30,7 +28,7 @@ function EditProduct() {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`${API_URL}/product/${id}`);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/product/${id}`);
             setProduct(response.data);
           } catch (err) {
             console.error("error fetching data", err);
@@ -135,7 +133,7 @@ function EditProduct() {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`${API_URL}/product`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/product`, {
         title,
         brand,
         price,

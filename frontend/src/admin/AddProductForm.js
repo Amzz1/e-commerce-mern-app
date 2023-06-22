@@ -86,7 +86,7 @@ function AddProductForm() {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`${API_URL}/product`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/product`, {
         title,
         brand,
         price,

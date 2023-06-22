@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import API_URL from "../apiUrl/apiUrl";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 
@@ -35,7 +34,7 @@ const Category = () => {
       setSelectedFilters(filters);
 
       const response = await axios.get(
-        `${API_URL}/product/category/${name}${location.search}`
+        `${process.env.REACT_APP_API_URL}/product/category/${name}${location.search}`
       );
       const { products, colors, sizes, prices, brands } = response.data;
       setProducts(products);

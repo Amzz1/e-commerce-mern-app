@@ -2,7 +2,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Outlet,
 } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -17,6 +16,7 @@ import Home from "./pages/home";
 import Product from "./pages/product";
 import Category from "./pages/category";
 import CartItems from "./components/CartItems";
+import Footer from "./components/Footer";
 const ROLES = {
   User: 2001,
   Admin: 9909,
@@ -33,6 +33,7 @@ const App = () => {
             <Route path="/" element={<Home />}></Route>
             <Route path="product/category/:name" element={<Category />}></Route>
             <Route path="product/:id" element={<Product />}></Route>
+            <Route path="cart/product/:id" element={<Product />}></Route>
             <Route path="product/category/:name/product/:id" element={<Product />}></Route>
             <Route path="/cart" element={<CartItems />}></Route>
           </Route>
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/admin/edit-product/:id" element={<EditProduct />}></Route>
           </Route>
         </Routes>
+        <Footer/>
       </Router>
     </div>
   );

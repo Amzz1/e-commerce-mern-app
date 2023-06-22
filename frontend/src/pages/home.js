@@ -9,15 +9,8 @@ import featureditem2 from "../assets/featuredcollection-item2.png";
 import aboutus from "../assets/Rectangle3239.png";
 import customerimg1 from "../assets/image88.png";
 import customerimg2 from "../assets/image89.png";
-import footerbannerRectangle1 from "../assets/footerbannerRectangle1.png";
-import footerbannerRectangle2 from "../assets/footerbannerRectangle2.png";
-import footerbannerRectangle3 from "../assets/footerbannerRectangle3.png";
-import footerbannerRectangle4 from "../assets/footerbannerRectangle4.png";
-import footerbannerRectangle5 from "../assets/footerbannerRectangle5.png";
-import footerimg from "../assets/image90.png";
-import {BsFacebook,BsTwitter,BsLinkedin,BsYoutube} from "react-icons/bs"
+
 import axios from "axios";
-import API_URL from "../apiUrl/apiUrl";
 
 import { Link } from "react-router-dom";
 const Home = () => {
@@ -27,7 +20,7 @@ const [showSucessMessage,setShowSuccessMessage] = useState(false)
   const sendCustomerEmail = async (e) =>{
     try{
     e.preventDefault();
-    const res = await axios.post(`${API_URL}/email/subscribe`,{"email":email})
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/email/subscribe`,{"email":email})
  if(res.status == 200){
     // Show the success message
     setShowSuccessMessage(true);
@@ -215,46 +208,6 @@ const [showSucessMessage,setShowSuccessMessage] = useState(false)
       </section>
       {showSucessMessage &&<div className="sucess-msg">thank you for submitting</div>}
 
-      <div className="footer">
-        <div className="footer-img-wrapper flex">
-          <div className="img-wrapper">
-            <img src={footerbannerRectangle1} alt="image" />
-          </div>
-          <div className="img-wrapper">
-            <img src={footerbannerRectangle2} alt="image" />
-          </div>
-          <div className="img-wrapper">
-            <img src={footerbannerRectangle3} alt="image" />
-          </div>
-          <div className="img-wrapper">
-            <img src={footerbannerRectangle5} alt="image" />
-          </div>
-          <div className="img-wrapper">
-            <img src={footerbannerRectangle4} alt="image" />
-          </div>
-        </div>
-        <div className="footer-navigate grid">
-          <div className="img-wrapper">
-            <img src={footerimg} alt="image" />
-          </div>
-          <div className="footer-navigate_collections">
-            <div className="footer-navigate_collections-link">
-              <Link>Men</Link>
-              <Link>Women</Link>
-              <Link>Kids</Link>
-              <Link>Collections</Link>
-              <Link>Trends</Link>
-            </div>
-            <div>Copyright Flash All Right Recovered</div>
-          </div>
-          <div className="footer-navigate_socialmedia">
-             <BsFacebook/>
-             <BsTwitter/>
-             <BsLinkedin/>
-             <BsYoutube/>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

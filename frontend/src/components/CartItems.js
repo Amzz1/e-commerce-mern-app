@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, updateCartItem } from '../redux/cartReducer';
 import { BsTrash3 } from 'react-icons/bs';
 import { loadStripe } from '@stripe/stripe-js';
-import API_URL from '../apiUrl/apiUrl';
+import { Link } from 'react-router-dom';
 
 const CartItems = () => {
   const cartItems = useSelector((state) => state.cart);
@@ -31,7 +31,7 @@ const CartItems = () => {
   };
   console.log(process.env.STRIPE_PUBLIC_KEY)
   const handleCheckout = async () => {
-    const response = await fetch(`${API_URL}/create-checkout-session`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/create-checkout-session`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const CartItems = () => {
     const session = await response.json();
   
     // Load the Stripe instance
-    const stripe = await loadStripe("pk_test_51NIJN7Irjtx2dPjPKi0VwCVMOrBmalACyo5olEjNKFaHxnpVew5c19XrjdhPJUnkCUUncgMC7yShzkVgSS9W8BdU008XoruQxg");
+    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
   
     // Redirect to the checkout page
     if (stripe) {
@@ -74,7 +74,7 @@ const CartItems = () => {
                 <div className="img-wrapper item-img">
             <img src={item.imageUrl} alt='product-image'/>
           </div>
-                <div>{item.title} {item.color && <span>{item.color}</span>} {item.size && <span>{item.size} ml</span>}</div>  
+              <Link to={`product/${item._id}`}><div>{item.title} {item.color && <span>{item.color}</span>} {item.size && <span>{item.size} ml</span>}</div>  </Link>  
                 </td>
                 <td className="quantity">
           

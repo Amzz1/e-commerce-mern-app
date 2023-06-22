@@ -2,7 +2,6 @@
 import { useRef, useState, useEffect } from "react";
 import { FaCheck, FaTimes, FaInfoCircle } from "react-icons/fa";
 import axios from 'axios';
-import API_URL from "../apiUrl/apiUrl";
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -65,7 +64,7 @@ const Register = () => {
             return;
         }
         try {
-            const response = await axios.post(`${API_URL}/auth/register`,
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`,
                 JSON.stringify({ user, pwd,email }),
                 {
                     headers: { 'Content-Type': 'application/json' },

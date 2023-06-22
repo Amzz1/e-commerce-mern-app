@@ -1,5 +1,4 @@
 //login.js
-import API_URL from "../apiUrl/apiUrl"
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -11,8 +10,6 @@ import { useState, useRef, useEffect } from "react";
 const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
-  console.log(API_URL)
-
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
@@ -43,7 +40,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/auth/login`,
+        `${process.env.REACT_APP_API_URL}/auth/login`,
         JSON.stringify({ user, pwd }),
                 {
                     headers: { 'Content-Type': 'application/json' },

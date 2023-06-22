@@ -47,6 +47,11 @@ app.use((req, res, next) => {
     'Content-Security-Policy',
     "default-src 'self'; script-src 'self' https://js.stripe.com; object-src 'none'; style-src 'self' fonts.googleapis.com; img-src 'self' data:; font-src 'self'; frame-src 'self' https://js.stripe.com/;"
   );
+  // res.setHeader(
+  //   'Content-Security-Policy',
+  //   "default-src 'self'; connect-src 'self' http://localhost:8080; script-src 'self' https://js.stripe.com; object-src 'none'; style-src 'self' fonts.googleapis.com; img-src 'self' data:; font-src 'self'; frame-src 'self' https://js.stripe.com/;"
+  // );
+  
   next();
 });
 
@@ -59,23 +64,7 @@ app.use('/users', usersRoute);
 app.use('/email', customerEmail);
 app.use('/auth', auth);
 
-const _dirname = path.dirname("")
-const buildPath = path.join(_dirname  , "../frontend/build");
 
-app.use(express.static(buildPath))
-
-app.get("/*", function(req, res){
-
-    res.sendFile(
-        path.join(__dirname, "../frontend/build/index.html"),
-        function (err) {
-          if (err) {
-            res.status(500).send(err);
-          }
-        }
-      );
-
-})
 
 
 // Create an instance of the Stripe class

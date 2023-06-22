@@ -1,9 +1,11 @@
 import React,{useEffect,useState} from 'react'
-import API_URL from '../apiUrl/apiUrl'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import StarRating from '../components/StarRating'
 import AddToCartButton from "../components/AddToCartButton"
+
+
+
 const Product = () => {
 
     const {id} = useParams()
@@ -14,7 +16,7 @@ const Product = () => {
     },[])
     const fetchData  = async () => {
         try{
-            const response = await axios.get(`${API_URL}/product/${id}`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/product/${id}`)
             setProduct(response.data)
             console.log(response.data)
         }catch(err){
