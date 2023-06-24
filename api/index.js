@@ -47,22 +47,18 @@ app.use((req, res, next) => {
     'Content-Security-Policy',
     "default-src 'self'; script-src 'self' https://js.stripe.com; object-src 'none'; style-src 'self' fonts.googleapis.com; img-src 'self' data:; font-src 'self'; frame-src 'self' https://js.stripe.com/;"
   );
-  // res.setHeader(
-  //   'Content-Security-Policy',
-  //   "default-src 'self'; connect-src 'self' http://localhost:8080; script-src 'self' https://js.stripe.com; object-src 'none'; style-src 'self' fonts.googleapis.com; img-src 'self' data:; font-src 'self'; frame-src 'self' https://js.stripe.com/;"
-  // );
   
   next();
 });
 
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/uploads', uploadRoutes);
-app.use('/product', productRoute);
-app.use('/users', usersRoute);
-app.use('/email', customerEmail);
-app.use('/auth', auth);
+app.use('/api/uploads', uploadRoutes);
+app.use('/api/product', productRoute);
+app.use('/api/users', usersRoute);
+app.use('/api/email', customerEmail);
+app.use('/api/auth', auth);
 
 
 
@@ -70,7 +66,7 @@ app.use('/auth', auth);
 // Create an instance of the Stripe class
 const stripe = new Stripe(process.env.STRIPE_KEY_SECRET);
 
-app.post('/create-checkout-session', async (req, res) => {
+app.post('/api/create-checkout-session', async (req, res) => {
   console.log
   try {
     const lineItems = req.body.map(item => {
