@@ -1,7 +1,7 @@
 
 import express from 'express';
 import multer from 'multer';
-import path from 'path';
+
 
 const router = express.Router();
 
@@ -29,7 +29,7 @@ const upload = multer({ storage, fileFilter });
 
 router.post('/', upload.single('image'), (req, res) => {
   res.setHeader('Content-Security-Policy', "default-src 'self'; font-src 'self' http://localhost:5000;");
-  const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  const imageUrl = `/uploads/${req.file.filename}`;
   res.json({ imageUrl });
 });
 
