@@ -133,7 +133,7 @@ function EditProduct() {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/product`, {
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/product/${id}`, {
         title,
         brand,
         price,
@@ -165,18 +165,32 @@ function EditProduct() {
         setTags([]);
         setRating("");
         setImageUrl("");
+      
       } else {
         console.error("Failed to add product");
       }
-      // navigate('/products');
+      navigate('/admin')
     } catch (error) {
       console.error("Error adding product:", error);
     }
   };
-
+  const handleDeleteProduct = async () => {
+    try {
+      const response = await axios.delete(`${process.env.REACT_APP_API_URL}/product/${id}`);
+      if (response.status === 200) {
+        console.log("Product was successfully deleted");
+        // Optionally, perform any additional actions after deletion
+        navigate('/admin')
+      } else {
+        console.error("Failed to delete product");
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
   return (
     <div className="add-product-form">
-      <h2>Add product form</h2>
+      <h2>Edit product form</h2>
     <form onSubmit={handleFormSubmit}>
       <label>
         Title:
@@ -331,7 +345,11 @@ function EditProduct() {
         <ImageUpload onUpload={handleImageUpload} />
       </label>
       <br />
-      <button type="submit">Add Product</button>
+      <div>
+      <button type="submit">Update Product</button>
+      <button onClick={handleDeleteProduct}>Delete Product</button>
+
+      </div>
     </form>
     </div>
   );

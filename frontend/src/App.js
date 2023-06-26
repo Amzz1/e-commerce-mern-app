@@ -17,6 +17,7 @@ import Product from "./pages/product";
 import Category from "./pages/category";
 import CartItems from "./components/CartItems";
 import Footer from "./components/Footer";
+import GetAllProducts from "./admin/GetAllProducts";
 const ROLES = {
   User: 2001,
   Admin: 9909,
@@ -38,7 +39,7 @@ const App = () => {
             <Route path="/cart" element={<CartItems />}></Route>
           </Route>
           <Route element={<PrivateRoute allowedRoles={[ROLES.Admin, ROLES.User]} />}>
-            <Route path="/admin" element={<Admin />}></Route>
+            <Route path="/admin" element={<GetAllProducts />}></Route>
             <Route path="/admin/add-product" element={<Admin />}></Route>
             <Route path="/admin/edit-product/:id" element={<EditProduct />}></Route>
           </Route>

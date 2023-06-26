@@ -28,35 +28,16 @@ export const createProduct = async (req, res) => {
     }
   }
 
-
   
   export const updateProduct = async (req, res) => {
     const { id } = req.params;
-    const { title,brand, price, description,whatIsIt,highlightedIngredients,whatElseYouNeedToKnow, variants,size,color,tags, rating, imageUrl } = req.body;
   
     try {
-      const product = await Product.findById(id);
+      const product = await Product.findByIdAndUpdate(id, req.body, { new: true });
   
       if (!product) {
         return res.status(404).json({ message: 'Product not found' });
       }
-  
-      product.title = title;
-      product.brand = brand;
-      product.price = price;
-      product.description = description;
-      product.whatIsIt = whatIsIt;
-      product.highlightedIngredients = highlightedIngredients;
-      product.whatElseYouNeedToKnow = whatElseYouNeedToKnow;
-      product.variants = variants;
-      product.size = size;
-      product.color = color;
-      product.size = size;
-      product.tags = tags;
-      product.rating = rating;
-      product.imageUrl = imageUrl;
-  
-      await product.save();
   
       res.status(200).json(product);
     } catch (error) {
