@@ -2,6 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import { FaCheck, FaTimes, FaInfoCircle } from "react-icons/fa";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -97,7 +98,7 @@ const Register = () => {
                 <section className="section">
                     <h1>Success!</h1>
                     <p>
-                        <a href="#">Sign In</a>
+                        <Link to="/login">Sign In</Link>
                     </p>
                 </section>
             ) : (
